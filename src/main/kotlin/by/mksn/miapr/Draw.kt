@@ -23,5 +23,5 @@ fun draw(firstFunction: (x: Double) -> Double, secondFunction: (x: Double) -> Do
     dataset.addSeries(series2)
 
     val chart = ChartFactory.createXYLineChart("Blah", "X", "Y", dataset, PlotOrientation.VERTICAL, true, false, false)
-    ChartUtilities.saveChartAsPNG(File("test${System.currentTimeMillis() % 100}.jpg"), chart, 1000, 1000)
+    ChartUtilities.saveChartAsPNG(File("test.jpg"), chart, 1000, 1000)
 }

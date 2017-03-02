@@ -10,14 +10,9 @@ fun DoubleArray.standardDeviation(): Double {
 }
 
 private fun variance(input: DoubleArray): Double {
-    val expectedVal = expectedValue(input)
+    val mean = input.mean()
     val variance = input.indices
-            .map { input[it] - expectedVal }
+            .map { input[it] - mean }
             .sumByDouble { it * it }
-    return variance
-}
-
-private fun expectedValue(input: DoubleArray): Double {
-    val sum = input.indices.sumByDouble { input[it] }
-    return sum / input.size
+    return variance / input.size
 }
