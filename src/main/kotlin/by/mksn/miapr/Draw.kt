@@ -3,25 +3,33 @@ package by.mksn.miapr
 import org.jfree.chart.ChartFactory
 import org.jfree.chart.ChartUtilities
 import org.jfree.chart.plot.PlotOrientation
+import org.jfree.chart.title.TextTitle
 import org.jfree.data.xy.XYSeries
 import org.jfree.data.xy.XYSeriesCollection
 import java.io.File
+import java.util.*
 
-fun draw(firstFunction: (x: Double) -> Double, secondFunction: (x: Double) -> Double, step: Double, interval: Interval) {
+fun draw(xValues: DoubleArray, y1Values: DoubleArray, y2Values: DoubleArray, areas: Pair<Double, Double>) {
     val dataset = XYSeriesCollection()
     val series1 = XYSeries("First Function")
     val series2 = XYSeries("Second Function")
 
-    var x = interval.start
-    while (x < interval.end) {
-        series1.add(x, firstFunction(x))
-        series2.add(x, secondFunction(x))
-        x += step
+    for (i in xValues.indices) {
+        series1.add(xValues[i], y1Values[i])
+        series2.add(xValues[i], y2Values[i])
     }
 
     dataset.addSeries(series1)
     dataset.addSeries(series2)
 
-    val chart = ChartFactory.createXYLineChart("Blah", "X", "Y", dataset, PlotOrientation.VERTICAL, true, false, false)
-    ChartUtilities.saveChartAsPNG(File("test.jpg"), chart, 1000, 1000)
+    val chart = ChartFactory.createXYAreaChart(
+            "Probabilistic Classification",
+            "X",
+            "Y",
+            dataset,
+            PlotOrientation.VERTICAL, true, false, false)
+    chart.addSubtitle(TextTitle("Detection mistake: ${String.format("%.3f", areas.first * 100)}%"))
+    chart.addSubtitle(TextTitle("False positive: ${String.format("%.3f", areas.second * 100)}%"))
+    chart.addSubtitle(TextTitle("Summary mistake: ${String.format("%.3f", (areas.first + areas.second) * 100)}%"))
+    ChartUtilities.saveChartAsPNG(File("clustering-mistake-${String.format(Locale.ROOT, "%.1f", PROBABILITY_1)}.jpg"), chart, 800, 500)
 }
