@@ -13,7 +13,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kotlin.version>1.0.5</kotlin.version>
+    <kotlin.version>1.1.0</kotlin.version>
   </properties>
 
   <dependencies>
@@ -22,11 +22,16 @@
       <artifactId>kotlin-stdlib</artifactId>
       <version>${kotlin.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>1.0.13</version>
+    </dependency>
   </dependencies>
 
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
 
     <plugins>
       <plugin>

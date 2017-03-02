@@ -9,7 +9,7 @@ fun gaussianRandomNumber(mean: Double, derivation: Double)
         = RANDOM.nextGaussian() * derivation + mean
 
 fun generateVector(length: Int, mean: Double, derivation: Double)
-        = Array(length, { gaussianRandomNumber(mean, derivation) })
+        = DoubleArray(length, { gaussianRandomNumber(mean, derivation) })
 
 data class Interval(val start: Double, val end: Double)
 
@@ -24,6 +24,6 @@ fun gaussian(x: Double, mean: Double, derivation: Double): Double {
     return result
 }
 
-fun generateProbabilityDensityFunction(vector: DoubleArray, probability: Double)
-        = { x: Double -> gaussian(x, vector.mean(), vector.standardDeviation()) * probability }
+fun generateProbabilityDensityFunction(vectorMean: Double, vectorDerivation: Double, probability: Double)
+        = { x: Double -> gaussian(x, vectorMean, vectorDerivation) * probability }
 
